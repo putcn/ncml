@@ -24,6 +24,7 @@ func generateID() int {
 }
 
 func NewScope(parent *Scope) *Scope {
+
 	fmt.Println("scope: creating new scope")
 	return &Scope{
 		id:     generateID(),
