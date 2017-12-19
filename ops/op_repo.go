@@ -24,7 +24,7 @@ func GetOpRepo() *OpRepo {
 	return _opRepo
 }
 
-func (o *OpRepo) CreateByName(name string) Operator {
+func (o *OpRepo) CreateOpByName(name string) Operator {
 	fmt.Println("oprepo: creating op instance for ", name)
 	return o.opMap[name]()
 }

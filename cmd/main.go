@@ -23,17 +23,18 @@ func main() {
 	}
 
 	scope := vars.NewScope(nil)
+	scope1 := vars.NewScope(scope) //testing with nested scopes
 	execq := exec.NewExecq()
 
 	fmt.Println("main: start to create op instances")
 
 	for _, desc := range opFlow {
 		//create op instances
-		op := opRepo.CreateByName(desc.Name)
+		op := opRepo.CreateOpByName(desc.Name)
 		for _, varname := range desc.Vars {
 			scope.CreateVar(varname, "float32")
 		}
-		execq.Add(op.Forward, scope)
+		execq.Add(op.Forward, scope1)
 	}
 
 	//create backward pass by dependencies
