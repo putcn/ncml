@@ -7,24 +7,24 @@ import (
 	"github.com/putcn/ncml/vars"
 )
 
-var passId int
+var passID int
 
 type Execq struct {
 	fstore []func(*vars.Scope)
 	sstore []*vars.Scope
-	PassId int
+	PassID int
 }
 
-func generateId() int {
-	passId += 1
-	return passId
+func generateID() int {
+	passID++
+	return passID
 }
 
 func NewExecq() *Execq {
 	e := Execq{
 		fstore: []func(*vars.Scope){},
 		sstore: []*vars.Scope{},
-		PassId: 0,
+		PassID: 0,
 	}
 	e.PreparePass()
 	return &e
@@ -40,15 +40,15 @@ func (e *Execq) Run(ctx context.Context) {
 	fmt.Println("exec: execting whole queue")
 	for index, f := range e.fstore {
 		s := e.sstore[index]
-		s.PassId = e.PassId
+		s.PassID = e.PassID
 		f(s)
 	}
 }
 
 func (e *Execq) PreparePass() {
-	e.PassId = generateId()
+	e.PassID = generateID()
 }
 
 func init() {
-	passId = 0
+	passID = 0
 }

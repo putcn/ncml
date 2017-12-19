@@ -7,7 +7,7 @@ import (
 type Var struct {
 	typeName string
 	value    interface{}
-	PassId   int
+	PassID   int
 }
 
 func NewVar(name string, typeName string) *Var {
@@ -15,6 +15,6 @@ func NewVar(name string, typeName string) *Var {
 	return &Var{
 		typeName: typeName,
 		value:    name, //for testing only
-		PassId:   0,
+		PassID:   0,
 	}
 }

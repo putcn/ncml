@@ -9,27 +9,27 @@ type Scope struct {
 	id     int
 	parent *Scope
 	vars   map[string]*Var
-	PassId int
+	PassID int
 }
 
-var currentId int
+var currentID int
 var mu sync.Mutex
 
-func generateId() int {
+func generateID() int {
 	mu.Lock()
 	defer mu.Unlock()
-	currentId = currentId + 1
-	fmt.Println("creating new scope id", currentId)
-	return currentId
+	currentID++
+	fmt.Println("creating new scope id", currentID)
+	return currentID
 }
 
 func NewScope(parent *Scope) *Scope {
 	fmt.Println("scope: creating new scope")
 	return &Scope{
-		id:     generateId(),
+		id:     generateID(),
 		vars:   map[string]*Var{},
 		parent: parent,
-		PassId: 0,
+		PassID: 0,
 	}
 }
 
@@ -45,7 +45,7 @@ func (s *Scope) CreateVar(name string, typeName string) *Var {
 
 func (s *Scope) StoreVar(name string, val *Var) *Var {
 	if val != nil {
-		val.PassId = s.PassId
+		val.PassID = s.PassID
 		s.vars[name] = val
 	}
 	return s.vars[name]
@@ -69,5 +69,5 @@ func (s *Scope) FetchVar(name string) *Var {
 }
 
 func init() {
-	currentId = 0
+	currentID = 0
 }
