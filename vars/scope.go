@@ -9,6 +9,7 @@ type Scope struct {
 	id     int
 	parent *Scope
 	vars   map[string]*Var
+	PassId int
 }
 
 var currentId int
@@ -28,6 +29,7 @@ func NewScope(parent *Scope) *Scope {
 		id:     generateId(),
 		vars:   map[string]*Var{},
 		parent: parent,
+		PassId: 0,
 	}
 }
 
@@ -43,6 +45,7 @@ func (s *Scope) CreateVar(name string, typeName string) *Var {
 
 func (s *Scope) StoreVar(name string, val *Var) *Var {
 	if val != nil {
+		val.PassId = s.PassId
 		s.vars[name] = val
 	}
 	return s.vars[name]

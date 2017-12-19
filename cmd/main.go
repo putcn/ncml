@@ -37,9 +37,12 @@ func main() {
 		execq.Add(op.Forward, scope1)
 	}
 
+	fmt.Println("main: testing passid", scope1.FetchVar("var1"))
+
 	//create backward pass by dependencies
 
 	//run
 	ctx := context.Background()
 	execq.Run(ctx)
+	fmt.Println("main: testing passid", scope1.FetchVar("var1"))
 }
